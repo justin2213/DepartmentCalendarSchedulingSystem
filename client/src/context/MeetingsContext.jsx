@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useSession } from "@supabase/auth-helpers-react";
 import axios from "axios";
-import { useUser } from "./UserContext";
+import { useUser } from "./UserContext.jsx";
 
 // Create a context for user meetings
 const MeetingContext = createContext();
@@ -21,7 +21,7 @@ export const MeetingsProvider = ({children}) => {
     
     try {
       // Fetch the confirmed user meetings from the server
-      const meetings = await axios.get(`${process.env.REACT_APP_API_BASE_URL}}/api/meetings/${userProfile.userID}`)
+      const meetings = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/meetings/${userProfile.userID}`)
       console.log(meetings.data);
       setConfirmedUserMeetings(meetings.data);
     } catch (err) {

@@ -35,9 +35,9 @@ const NavigationBar = () => {
                                 + Create
                             </Button>
                         </div>
-                        <Nav.Link as={Link} to="/meetings" className="me-3">Meetings</Nav.Link>
+                        <Nav.Link as={Link} to="/" className="me-3">Meetings</Nav.Link>
                         <Nav.Link as={Link} to="/calendar" className="me-3">Calendar</Nav.Link>
-                        <NavDropdown title={userProfile ? userProfile.fullName : 'shh'} id="basic-nav-dropdown">
+                        <NavDropdown title={userProfile ? userProfile.fullName : ''} id="basic-nav-dropdown">
                             <NavDropdown.Item as={Link} to="/">Availability</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item as={Button} onClick={signOut}>Logout</NavDropdown.Item>

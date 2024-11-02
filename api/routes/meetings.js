@@ -1,5 +1,5 @@
 import express from "express";
-import { getConfirmedMeetings, getPendingMeetings } from "../Controllers/meetings.js";
+import { getConfirmedMeetings, getPendingMeetings } from "../controllers/meetings.js";
 
 const router = express.Router();
 
