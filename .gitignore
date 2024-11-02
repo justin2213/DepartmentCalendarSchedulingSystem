@@ -2,6 +2,7 @@
 
 # dependencies
 /client/node_modules
+/api/node_modules
 /.pnp
 .pnp.js
 
@@ -10,6 +11,7 @@
 
 # Ignore environment variables
 /client/.env
+/api/.env
 
 # production
 /build
