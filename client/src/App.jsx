@@ -4,6 +4,7 @@ import {
   RouterProvider,
   Outlet
 } from "react-router-dom";
+import NavigationBar from './components/NavigationBar.jsx';
 import Meetings from './pages/Meetings.jsx';
 import Calendar from './pages/Calendar.jsx';
 import Login from './pages/Login.jsx';
@@ -14,6 +15,7 @@ import { useSession } from '@supabase/auth-helpers-react';
 const Layout = () => {
   return (
     <div className='App'>
+      <NavigationBar />
       <div className="Container">
         <Outlet />
       </div>
