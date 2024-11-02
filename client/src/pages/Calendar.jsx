@@ -1,4 +1,4 @@
-const Calander = () => {
+const Calendar = () => {
   return ( 
     <div>
       Calander Page
@@ -6,4 +6,4 @@ const Calander = () => {
    );
 }
  
-export default Calander;
+export default Calendar;
