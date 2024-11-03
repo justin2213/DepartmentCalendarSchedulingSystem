@@ -40,7 +40,7 @@ const Login = () => {
               className="rounded-pill me-3 px-5"
               onClick={microsoftSignIn}
           >
-              Login
+              L
           </Button>
         </Col>
       </Row>
