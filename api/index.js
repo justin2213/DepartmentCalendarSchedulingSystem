@@ -1,7 +1,7 @@
 import express from "express";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
-import meetingRoutes from "./routes/meetings.js";
+import eventRoutes from "./routes/events.js";
 import cors from 'cors';
 import dotenv from 'dotenv'; // Import dotenv
 
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors({ origin: process.env.CORS_ORIGIN })); // Use the CORS origin from the .env file
 app.use("/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/meetings", meetingRoutes);
+app.use("/api/events", eventRoutes);
 
 const PORT = process.env.PORT || 8800; // Default to 8800 if not specified in .env
 app.listen(PORT, (err) => {

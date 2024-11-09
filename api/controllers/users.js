@@ -9,3 +9,7 @@ export const getUser = (req,res) => {
     return res.status(200).json(data[0]);
   })
 }
+
+export const getUsers = (req,res) => {
+  // Get a list of Users from the database
+}
