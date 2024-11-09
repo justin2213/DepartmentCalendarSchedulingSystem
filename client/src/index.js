@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS for styling
 import { createClient } from '@supabase/supabase-js'; // Supabase client 
 import { SessionContextProvider } from '@supabase/auth-helpers-react'; // Context provider for session management
 import { UserProvider } from './context/UserContext.jsx'; // Context provider for user state management
-import { MeetingsProvider } from './context/MeetingsContext.jsx'; // Context provider for meetings state management
+import { EventProvider } from './context/EventContext.jsx'; // Context provider for event state management
 
 // Create a Supabase client for managing authentication and session state
 const supabase = createClient(
@@ -19,9 +19,9 @@ root.render(
   <React.StrictMode>
     <SessionContextProvider supabaseClient={supabase}> {/* Provides session information across the application */}
       <UserProvider> {/* Provides user information across the application */}
-        <MeetingsProvider> {/* Provides meeting information across the application */}
+        <EventProvider> {/* Provides event information across the application */}
           <App /> {/* Main application component */}
-        </MeetingsProvider>
+        </EventProvider>
       </UserProvider>
     </SessionContextProvider>
   </React.StrictMode>
