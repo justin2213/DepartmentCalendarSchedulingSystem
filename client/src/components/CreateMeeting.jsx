@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import Select from 'react-select';
 
 const CreateMeeting = (props) => {
   const [start, setStart] = useState(new Date());
@@ -40,24 +41,6 @@ const CreateMeeting = (props) => {
                 <Form.Label htmlFor="search">Participants</Form.Label>
                 <Form.Control type="search" placeholder="Participants" id="search" />
               </Form.Group>
-            </Col>
-          </Row>
-          <Row className='mb-2'>
-            <Col>
-              <Form.Label htmlFor="startTime">Date</Form.Label>
-              <Form.Control 
-                type="date" 
-                placeholder="Start" 
-                id="startTime"
-              />
-            </Col>
-            <Col>
-              <Form.Label htmlFor="endTime">Duration</Form.Label>
-              <Form.Control 
-                type="date" 
-                placeholder="End" 
-                id="endTime" 
-              />
             </Col>
           </Row>
           <Form.Label htmlFor="desc">Description</Form.Label>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // React library and useState hook for state management
 import { Container, Row, Col, Card, Nav, ListGroup, Button, Accordion } from 'react-bootstrap'; // Bootstrap components for layout and styling
 import Meeting from '../components/Meeting.jsx'; // Meeting component to display individual meetings
-import { useMeetings } from '../context/MeetingsContext.jsx'; // Hook to access meetings context
+import { useEvents } from '../context/EventContext.jsx'; // Hook to access meetings context
 
 const Meetings = () => {
   const MeetingStatus = {
@@ -10,7 +10,7 @@ const Meetings = () => {
     PAST: 'past',         // Status for past meetings
   };
   
-  const { confirmedUserMeetings, pendingUserMeetings } = useMeetings(); // Retrieve meetings data from context
+  const { events } = useEvents(); // Retrieve meetings data from context
   const [status, setStatus] = useState(MeetingStatus.UPCOMING); // State to manage currently selected meeting status
 
   // Use a variable to hold the filtered meetings
@@ -19,24 +19,29 @@ const Meetings = () => {
   // Use switch to determine which meetings to display
   switch (status) {
     case MeetingStatus.PENDING:
-      meetingsToDisplay = pendingUserMeetings.map(meeting => (
-        <Meeting key={meeting.id} meeting={meeting} />
-      ));
+      meetingsToDisplay = events
+        .filter(event => event.eventType === 'meeting')
+        .filter(meeting => meeting.meetingDetails.status === 'pending')
+        .map(meeting => (
+          <Meeting key={meeting.eventID} meeting={meeting} />
+        ));
       break;
 
     case MeetingStatus.PAST:
-      meetingsToDisplay = confirmedUserMeetings
-        .filter(meeting => new Date(meeting.date) <= new Date()) // Filter past meetings based on the date
+      meetingsToDisplay = events
+        .filter(event => event.eventType === 'meeting')
+        .filter(meeting => new Date(meeting.eventStart) <= new Date()) // Filter past meetings based on the date
         .map(meeting => (
-          <Meeting key={meeting.id} meeting={meeting} />
+          <Meeting key={meeting.eventID} meeting={meeting} />
         ));
       break;
 
     default:
-      meetingsToDisplay = confirmedUserMeetings
-        .filter(meeting => new Date(meeting.date) > new Date()) // Filter upcoming meetings based on the date
+      meetingsToDisplay = events
+        .filter(event => event.eventType === 'meeting')
+        .filter(meeting => new Date(meeting.eventStart) > new Date()) // Filter upcoming meetings based on the date
         .map(meeting => (
-          <Meeting key={meeting.id} meeting={meeting} />
+          <Meeting key={meeting.eventID} meeting={meeting} />
         ));
       break;
   }
@@ -70,7 +75,7 @@ const Meetings = () => {
                 </Nav.Item>
               </Nav>
             </Card.Header>
-            <Accordion>
+            <Accordion flush>
               <Accordion.Item eventKey="0">
                 <Accordion.Header>Date Range</Accordion.Header>
                 <Accordion.Body>

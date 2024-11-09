@@ -38,34 +38,34 @@ function Meeting({meeting}) {
   
   return (
     <>
-    <ListGroupItem className="bg-light">{formatDateTitle(meeting.startTime)}</ListGroupItem>
+    <ListGroupItem className="bg-light">{formatDateTitle(meeting.eventStart)}</ListGroupItem>
     <Accordion defaultActiveKey="0" flush>
       <Accordion.Item eventKey="0">
         <Accordion.Header>
           <Row className="w-100 align-items-center">
             {/* Adjust column size for responsiveness */}
             <Col xs={12} md={6}>
-              <p>{formatTime(meeting.startTime)}</p>
+              <p>{formatTime(meeting.eventStart)}</p>
             </Col>
             <Col xs={12} md={6}>
-              <p>{meeting.title}</p>
+              <p>{meeting.eventTitle}</p>
             </Col>
           </Row>
         </Accordion.Header>
         <Accordion.Body>
           <Row>
-            <h5 className="mb-4"><strong>{meeting.title}</strong></h5>
+            <h5 className="mb-4"><strong>{meeting.eventTitle}</strong></h5>
             <Col xs={12} md={6}>
-              <p><strong>Date:</strong> {formatDate(meeting.startTime)}</p>
-              <p><strong>Time:</strong> {formatTime(meeting.startTime)} - {formatTime(meeting.endTime)}</p>
-              <p><strong>Location:</strong> {meeting.location}</p>
+              <p><strong>Date:</strong> {formatDate(meeting.eventStart)}</p>
+              <p><strong>Time:</strong> {formatTime(meeting.eventStart)} - {formatTime(meeting.eventEnd)}</p>
+              <p><strong>Location:</strong> {meeting.eventLocation}</p>
               <p><strong>Participants:</strong> {meeting.attendees.map(attendee => attendee.fullName).join(', ')}</p>
-              <p><strong>Description:</strong> {meeting.description}</p>
+              <p><strong>Description:</strong> {meeting.meetingDetails.desc}</p>
             </Col>
           </Row>
           <Row>
             <Col>
-            {meeting.status === 'pending' && meeting.attendees.some((attendee) => 
+            {meeting.meetingDetails.status === 'pending' && meeting.attendees.some((attendee) => 
                   attendee.userID === userProfile.userID && !attendee.isConfirmed
             )
             ? 
