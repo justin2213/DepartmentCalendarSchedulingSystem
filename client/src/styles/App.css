@@ -19,4 +19,15 @@
   max-width: 100vw;  
   max-height: 100vh; 
 }
+/* Create a custom style for expanding the modal */
+.custom-modal .modal-dialog {
+  max-width: 90% !important;  /* Set modal max width to 90% */
+  width: 90% !important;       /* Set the actual width to 90% */
+}
+
+.custom-modal .modal-content {
+  height: auto;
+  max-height: 90vh !important;  /* Set modal height to 90% of viewport height */
+}
+
 
