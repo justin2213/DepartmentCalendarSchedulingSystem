@@ -22,7 +22,7 @@ const NavigationBar = () => {
     return ( 
         <Navbar fixed="top" expand="lg" bg="dark" data-bs-theme="dark" className="py-3">
             <Container>
-                <Navbar.Brand as={Link} to="/" className="fs-3">MeetEase</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/" className="fs-3">Department Scheduler</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">

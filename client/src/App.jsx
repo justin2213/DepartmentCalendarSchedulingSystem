@@ -1,23 +1,24 @@
-import './styles/App.css';
+import './styles/App.css'; // Importing custom styles for the application
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet
-} from "react-router-dom";
-import NavigationBar from './components/NavigationBar.jsx';
-import Meetings from './pages/Meetings.jsx';
-import Calendar from './pages/Calendar.jsx';
-import Login from './pages/Login.jsx';
-import { Container } from "react-bootstrap";
-import { useSession } from '@supabase/auth-helpers-react';
+} from "react-router-dom"; // React Router for client-side routing
+import NavigationBar from './components/NavigationBar.jsx'; // Navigation bar component
+import Meetings from './pages/Meetings.jsx'; // Meetings page component
+import Calendar from './pages/Calendar.jsx'; // Calendar page component
+import Login from './pages/Login.jsx'; // Login page component 
+import { Container } from "react-bootstrap"; // Bootstrap container 
+import { useSession } from '@supabase/auth-helpers-react'; // Hook to manage user session state
+
 
 // Set the layout for the app
 const Layout = () => {
   return (
     <div className='App'>
-      <NavigationBar />
+      <NavigationBar /> {/* Renders the navigation bar for the application */}
       <div className="Container">
-        <Outlet />
+        <Outlet /> {/* Placeholder for rendering child routes */}
       </div>
     </div>
   );
@@ -26,14 +27,14 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Layout />, // The root layout of the app
     children: [
       {
-        path: "/",
+        path: "/", // Default route renders the Meetings page
         element: <Meetings />
       },
       {
-        path: "/calendar",
+        path: "/calendar", // Route for the Calendar page
         element: <Calendar />
       }
     ]
@@ -41,13 +42,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  const session = useSession(); // Tokens, when the session exists there is a user
+  const session = useSession(); // Retrieve session information to determine user authentication status
   return (
     <Container fluid className="p-0">
-        { session ?
-          <RouterProvider router = {router} />
+        { session ? // Check if a session exists
+          <RouterProvider router={router} /> // Render the router if the user is authenticated
           :
-          <Login />
+          <Login /> // Render the Login page if there is no session
         }
      </Container>
   );
