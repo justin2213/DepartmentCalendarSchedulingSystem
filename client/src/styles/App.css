@@ -20,3 +20,13 @@
   max-height: 100vh; 
 }
 
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.custom-background {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
