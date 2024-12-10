@@ -18,8 +18,9 @@ export const UserProvider = ({ children }) => {
     if (!session) return;
     try {
       // Fetch the user profile from the server using the environment variable
+      // console.log(session.user.id)
       const userData = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/${session.user.id}`);
-      console.log(userData.data); // Log the user data to the console
+      // console.log(userData.data); // Log the user data to the console
       setUserProfile(userData.data); // Store the user data in state
     } catch (error) {
       console.error('Error fetching user profile:', error);

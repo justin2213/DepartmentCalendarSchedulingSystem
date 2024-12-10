@@ -2,6 +2,11 @@ import React, { useState } from 'react'; // React library and useState hook for 
 import { Container, Row, Col, Card, Nav, ListGroup, Button, Accordion } from 'react-bootstrap'; // Bootstrap components for layout and styling
 import Meeting from '../components/Meeting.jsx'; // Meeting component to display individual meetings
 import { useEvents } from '../context/EventContext.jsx'; // Hook to access meetings context
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const Meetings = () => {
   const MeetingStatus = {
@@ -47,8 +52,7 @@ const Meetings = () => {
   }
 
   return (
-    <Container fluid className="vh-100 d-flex flex-column align-items-center">
-
+    <Container fluid className="vh-100 d-flex flex-column align-items-center mb-3">
       <Row className="w-100 py-3 m-5 px-5">
         <Col>
           <h2><strong>Meetings</strong></h2> {/* Header for the meetings page */}
@@ -79,7 +83,19 @@ const Meetings = () => {
               <Accordion.Item eventKey="0">
                 <Accordion.Header>Date Range</Accordion.Header>
                 <Accordion.Body>
-                  Date range filter content goes here. {/* Placeholder for future date range filter */}
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <Row className="d-flex justify-content-between align-items-center">
+                      <Col xs={12} md={3} className="p-0 mb-3 mb-md-0">
+                        <DatePicker label="From" />
+                      </Col>
+                      <Col xs={12} md={7} className="p-0 mb-3 mb-md-0">
+                        <DatePicker label="To"  />
+                      </Col>
+                      <Col xs={12} md={2}className="p-0 mb-3 mb-md-0 ml-auto">
+                        <Button>Apply Range</Button>
+                      </Col>
+                    </Row>
+                  </LocalizationProvider>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

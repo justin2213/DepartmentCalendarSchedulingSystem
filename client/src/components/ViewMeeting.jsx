@@ -18,6 +18,20 @@ const ViewMeeting = (props) => {
     setSelectedParticipants(selectedOptions);
   };
 
+  function formatEventDateTime() {
+    const startDate = new Date(event.eventStart);
+  const endDate = new Date(event.eventEnd);
+
+  const dateOptions = { month: 'long', day: 'numeric' }; // e.g., December 6
+  const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true }; // e.g., 9:00 PM
+
+  const formattedDate = new Intl.DateTimeFormat('en-US', dateOptions).format(startDate);
+  const startTime = new Intl.DateTimeFormat('en-US', timeOptions).format(startDate);
+  const endTime = new Intl.DateTimeFormat('en-US', timeOptions).format(endDate);
+
+  return `${formattedDate}, ${startTime} - ${endTime}`;
+  }
+
   useEffect(() => {
     // If event exists, update selected participants based on the event attendees
     if (event && event.attendees) {
@@ -38,7 +52,7 @@ const ViewMeeting = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {event ? event.eventTitle : "Title"}
+          {event ? formatEventDateTime() : "Title"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -60,7 +74,7 @@ const ViewMeeting = (props) => {
                   isMulti
                   options={participantOptions}
                   value={selectedParticipants}
-                  isClearable={null}
+                  isDisabled={true}
                   onChange={handleParticipantsChange}
                   placeholder="Participants"
                 />

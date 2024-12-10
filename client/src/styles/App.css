@@ -30,4 +30,10 @@
   max-height: 90vh !important;  /* Set modal height to 90% of viewport height */
 }
 
+.custom-toggle-btn {
+  width: 100px; /* Fixed width for buttons */
+  height: 40px; /* Optional fixed height */
+  margin-bottom: 10px; /* Space between buttons */
+}
+
 

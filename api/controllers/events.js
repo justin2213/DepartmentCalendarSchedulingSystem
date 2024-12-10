@@ -1,4 +1,5 @@
 import { db } from "../db.js"
+import dayjs from 'dayjs';
 
 export const getEvents = (req, res) => {
 
@@ -71,8 +72,107 @@ export const getEvents = (req, res) => {
 
       return acc;
     }, []);
-
+  
     // Send the structured events array as the response
     return res.status(200).json(events);
   });
+};
+
+export const postMeeting = (req, res) => {
+
+  const {
+    organizerID,
+    title,
+    location,
+    start,
+    duration,
+    description,
+    requiresConfirmation,
+    participants,
+  } = req.body;
+
+  // Validation rules
+  const validations = [
+    { field: "title", value: title, message: "Meeting must have a title!" },
+    { field: "location", value: location, message: "Meeting must have a location!" },
+    { field: "participants", value: participants, message: "Meeting must have at least one participant!" },
+  ];
+
+  // Check each validation
+  for (const { field, value, message } of validations) {
+    if (!value || (Array.isArray(value) && value.length === 0) || value.length === 0) {
+      return res.status(400).json({ field, message });
+    }
+  }
+
+  // Reformat the datetime values for MySQL compatibility
+  const formattedStart = dayjs(start).format("YYYY-MM-DD HH:mm:ss");
+  const eventEnd = dayjs(start).add(duration, "minute").format("YYYY-MM-DD HH:mm:ss");
+
+  const eventQuery = `
+    INSERT INTO Events (organizerID, eventTitle, eventLocation, eventStart, eventEnd, eventType)
+    VALUES (?, ?, ?, ?, ?, 'meeting')
+  `;
+
+  db.query(
+    eventQuery,
+    [organizerID, title, location, formattedStart, eventEnd],
+    (err, eventResult) => {
+      if (err) {
+        console.error("Error inserting into Events table:", err);
+        return res.status(500).json({ error: "Failed to create event." });
+      }
+
+      const eventID = eventResult.insertId; // Get the ID of the newly created event
+
+      const meetingQuery = `
+        INSERT INTO Meetings (eventID, meetingDesc, meetingStatus, requiresConfirmation)
+        VALUES (?, ?, ?, ?)
+      `;
+
+      db.query(
+        meetingQuery,
+        [
+          eventID,
+          description,
+          requiresConfirmation === 0 ? "confirmed" : "pending", // Determine meetingStatus
+          requiresConfirmation,
+        ],
+        (err) => {
+          if (err) {
+            console.error("Error inserting into Meetings table:", err);
+            return res.status(500).json({ error: "Failed to create meeting details." });
+          }
+
+          const attendeesQuery = `
+            INSERT INTO EventAttendees (eventID, attendeeID, isConfirmed)
+            VALUES ?
+          `;
+
+          // Add organizerID with isConfirmed as 1, and map other participants
+          const attendeesValues = [
+            [eventID, organizerID, 1], // Organizer is always confirmed
+            ...participants.map((participantID) => [
+              eventID,
+              participantID,
+              requiresConfirmation === 0 ? 1 : 0,
+            ]),
+          ];
+
+          db.query(
+            attendeesQuery,
+            [attendeesValues],
+            (err) => {
+              if (err) {
+                console.error("Error inserting into EventAttendees table:", err);
+                return res.status(500).json({ error: "Failed to add participants." });
+              }
+
+              return res.status(201).json({ message: "Meeting created successfully!" });
+            }
+          );
+        }
+      );
+    }
+  );
 };

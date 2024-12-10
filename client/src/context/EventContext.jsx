@@ -19,7 +19,7 @@ export const EventProvider = ({children}) => {
     if (!userProfile) return;
     
     try {
-      console.log(userProfile.userID)
+      // console.log(userProfile.userID)
       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/events/${userProfile.userID}`)
       console.log(response.data);
       setEvents(response.data);

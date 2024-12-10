@@ -83,9 +83,11 @@ const Calendar = () => {
         },
         callbacks: {
             onEventClick(calendarEvent) {
-                const event = events.find(event => event.eventID === calendarEvent.id);
-                setViewedEvent(event || null);
-                setShowMeeting(true);
+                if (events) {
+                    const event = events.find((event) => event.eventID === calendarEvent.id);
+                    setViewedEvent(event || null);
+                    setShowMeeting(true);
+                }
             }
         },
         firstDayOfWeek: 0,
@@ -111,7 +113,7 @@ const Calendar = () => {
             location: event.eventLocation,
             calendarId: event.eventType,
         })),
-        selectedDate: getCurrentDate(),
+        selectedDate: "2024-11-18" // Hard coded for presentation,
     }, [eventsServicePlugin]);
 
     useEffect(() => {
@@ -126,16 +128,17 @@ const Calendar = () => {
                 calendarId: event.eventType,
             })));
         }
+
     }, [events, calendar.eventsService]);
 
     return (
         <Container fluid className="vh-100 d-flex flex-column align-items-center">
-            <Row className='w-100 pt-3 m-5' style={{ height: '75%' }}>
+            <Row className='w-100 pt-3 m-5' style={{ height: '85%' }}>
                 <Col style={{ height: '100%', overflowY: 'auto' }}>
                     <ScheduleXCalendar calendarApp={calendar} />
                 </Col>
             </Row>
-            <ViewMeeting show={showMeeting} onHide={() => setShowMeeting(false)} event={viewedEvent} />
+            <ViewMeeting show={viewedEvent && showMeeting} onHide={() => setShowMeeting(false)} event={viewedEvent} />
         </Container>
     );
 };
