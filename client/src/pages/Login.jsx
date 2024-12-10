@@ -21,30 +21,41 @@ const Login = () => {
   }
 
   return (
-    <Container fluid className="bg-dark vh-100 d-flex flex-column justify-content-center align-items-center text-white">
-      {/* Container with dark background that takes full height */}
-      <Row className="text-center w-100">
-        <Col>
-          <h1>Department Scheduling System</h1> {/* Application name */}
-        </Col>
-      </Row>
-      <Row className="text-center w-100 mt-2">
-        <Col>
-          <h4>Scheduling made easy!</h4> {/* Tagline for the application */}
-        </Col>
-      </Row>
-      <Row className="text-center mt-4 w-100">
-        <Col>
-          <Button 
-              variant="primary"
-              className="rounded-pill me-3 px-5" 
-              onClick={microsoftSignIn} // Call sign in function when clicked
-          >
-              Login
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+    <Container 
+      fluid className="bg-dark vh-100 d-flex flex-column justify-content-center align-items-center text-white"
+      style={{ 
+        background: "linear-gradient(135deg, #0a4275, #022b3a)" 
+      }}
+      >
+        {/* Welcome Text */}
+        <Row className="text-center w-100">
+          <Col>
+            <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>Department Calendar Scheduling System</h1>
+          </Col>
+        </Row>
+
+        {/* Login Button */}
+        <Row className="text-center mt-4 w-100">
+          <Col>
+            <Button 
+                variant="primary"
+                className="rounded-pill px-5" 
+                onClick={microsoftSignIn} // Call sign in function when clicked
+                aria-label="Login with Microsoft"
+                style={{ 
+                  background: "linear-gradient(90deg, #1a73e8, #4285f4)", 
+                  border: "none", 
+                  padding: "0.75rem 2rem", 
+                  fontSize: "1.2rem",
+                  boxShadow: "0 4px 12px rgba(66, 133, 244, 0.5)" 
+                }}
+  
+            >
+              Login with Microsoft
+            </Button>
+          </Col>
+        </Row>
+      </Container>
   );
 }
 

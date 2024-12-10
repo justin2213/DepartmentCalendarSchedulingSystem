@@ -36,4 +36,9 @@
   margin-bottom: 10px; /* Space between buttons */
 }
 
+.custom-background {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
 

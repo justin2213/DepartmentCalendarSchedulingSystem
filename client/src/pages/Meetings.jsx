@@ -22,6 +22,8 @@ const Meetings = () => {
   let meetingsToDisplay;
 
   // Use switch to determine which meetings to display
+  const referenceDate = new Date('2024-11-18'); // Set the reference date
+
   switch (status) {
     case MeetingStatus.PENDING:
       meetingsToDisplay = events
@@ -35,7 +37,7 @@ const Meetings = () => {
     case MeetingStatus.PAST:
       meetingsToDisplay = events
         .filter(event => event.eventType === 'meeting')
-        .filter(meeting => new Date(meeting.eventStart) <= new Date()) // Filter past meetings based on the date
+        .filter(meeting => new Date(meeting.eventStart) <= referenceDate) // Filter past meetings based on the reference date
         .map(meeting => (
           <Meeting key={meeting.eventID} meeting={meeting} />
         ));
@@ -44,12 +46,13 @@ const Meetings = () => {
     default:
       meetingsToDisplay = events
         .filter(event => event.eventType === 'meeting')
-        .filter(meeting => new Date(meeting.eventStart) > new Date()) // Filter upcoming meetings based on the date
+        .filter(meeting => new Date(meeting.eventStart) > referenceDate) // Filter upcoming meetings based on the reference date
         .map(meeting => (
           <Meeting key={meeting.eventID} meeting={meeting} />
         ));
       break;
   }
+
 
   return (
     <Container fluid className="vh-100 d-flex flex-column align-items-center mb-3">

@@ -252,7 +252,6 @@ const CreateMeeting = (props) => {
               <Form.Group className="mb-2">
                 <Form.Label htmlFor="duration">Duration</Form.Label>
                 <Form.Select size="sm" onChange={handleDurationChange}>
-                  <option value={15}>15 min</option>
                   <option value={30}>30 min</option>
                   <option value={45}>45 min</option>
                   <option value={60}>1 hr</option>
